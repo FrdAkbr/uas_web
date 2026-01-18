@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
 
 class RestaurantAdminController extends Controller
 {
@@ -34,23 +32,16 @@ class RestaurantAdminController extends Controller
 
         // ================= IMAGE PROCESS =================
         if ($request->hasFile('image')) {
-
-            $manager = new ImageManager(new Driver());
-            $img = $manager->read($request->file('image'));
-
-            // resize (max width 1200px)
-            $img->resize(1200, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-
-            $fileName = time() . '.jpg';
-            $path = storage_path('app/public/restaurants/' . $fileName);
-
-            // compress to jpg quality 75
-            $img->toJpeg(75)->save($path);
-
-            $data['image'] = 'restaurants/' . $fileName;
+            $file = $request->file('image');
+            
+            // Generate unique filename
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            
+            // Store image directly without processing
+            // This works on any server without needing GD/ImageMagick
+            $path = $file->storeAs('restaurants', $fileName, 'public');
+            
+            $data['image'] = $path;
         }
 
         // default rating
@@ -87,20 +78,15 @@ class RestaurantAdminController extends Controller
                 Storage::disk('public')->delete($restaurant->image);
             }
 
-            $manager = new ImageManager(new Driver());
-            $img = $manager->read($request->file('image'));
-
-            $img->resize(1200, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-
-            $fileName = time() . '.jpg';
-            $path = storage_path('app/public/restaurants/' . $fileName);
-
-            $img->toJpeg(75)->save($path);
-
-            $data['image'] = 'restaurants/' . $fileName;
+            $file = $request->file('image');
+            
+            // Generate unique filename
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            
+            // Store image directly without processing
+            $path = $file->storeAs('restaurants', $fileName, 'public');
+            
+            $data['image'] = $path;
         }
 
         $restaurant->update($data);

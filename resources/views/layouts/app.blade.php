@@ -41,7 +41,7 @@
             </ul>
 
             <!-- ADMIN -->
-            <a href="/admin/login" class="btn btn-warning btn-sm ms-3">
+            <a href="/admin/restaurants/index" class="btn btn-warning btn-sm ms-3">
                 Admin
             </a>
         </div>
