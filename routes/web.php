@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\Admin\RestaurantAdminController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\UserController;
+
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 /*
 |--------------------------------------------------------------------------

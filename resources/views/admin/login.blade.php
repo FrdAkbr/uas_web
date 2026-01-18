@@ -28,7 +28,7 @@
 
     <button class="btn btn-primary w-100">Login</button>
 </form>
-
+<a href="/users/create" class="d-block text-center mt-3">Create User Account</a>
 
 </div>
 </div>
