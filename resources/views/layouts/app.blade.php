@@ -39,11 +39,6 @@
                     </a>
                 </li>
             </ul>
-
-            <!-- ADMIN -->
-            <a href="{{ route('admin.restaurants.index') }}" class="btn btn-warning btn-sm ms-3">
-                Admin
-            </a>
         </div>
     </div>
 </nav>
