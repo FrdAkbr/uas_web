@@ -11,7 +11,7 @@ Schema::create('restaurants', function (Blueprint $table) {
 $table->id();
 $table->string('name');
 $table->string('location');
-$table->string('region')->after('location');
+$table->string('region');
 $table->text('description');
 $table->string('image')->nullable();
 $table->float('rating')->default(0);

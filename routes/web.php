@@ -49,6 +49,5 @@ Route::post('/review/{id}', [RestaurantController::class,'storeReview']);
 Route::get('/semua', [RestaurantController::class, 'semua'])
     ->name('restaurant.semua');
 
-
 Route::get('/search', [RestaurantController::class, 'search'])
     ->name('restaurant.search');
